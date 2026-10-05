@@ -24,9 +24,10 @@ def run_seating(hall_id: int = 1, db: Session = Depends(get_db)):
 
 @router.get("/latest")
 def latest(hall_id: int = 1, db: Session = Depends(get_db)):
+    if not db.get(Hall, hall_id): raise HTTPException(404, "考室不存在")
     plan = db.scalars(select(SeatPlan).where(SeatPlan.hall_id == hall_id).order_by(SeatPlan.id.desc())).first()
     if not plan:
-        return run_seating(hall_id=hall_id, db=db)
+        raise HTTPException(404, "暂无排座方案")
     data = json.loads(plan.result_json)
     return {"id": plan.id, **data}
 

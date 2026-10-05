@@ -1,2 +1,7 @@
-from app.models.models import Candidate, Hall, PaperSet, SeatPlan
-__all__ = ["Hall", "Candidate", "PaperSet", "SeatPlan"]
+fastapi
+uvicorn[standard]
+sqlalchemy>=2
+psycopg2-binary
+pydantic-settings
+pytest
+httpx
